@@ -1,8 +1,5 @@
 package Main;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,27 +20,28 @@ public class window extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		setVisible(true);
 	}
 	public void ventanas(int location)
 	{
 		w1=new ventanas();
-		this.getContentPane().add(p);
+		p.setLayout(null);
 		if(location==1)
 		{
 			w1.login();
 			
 		}
+		this.getContentPane().add(p);
+		this.setVisible(true);
+		System.out.println("...");
 	}
 	public static void main(String[] args) {
 		new window().start();
 	}
 	public void start()
 	{
-		int ventana=1;
 		while(running)
 		{
-			ventanas(ventana);
+			ventanas(1);
 			running=false;
 		}
 	}
