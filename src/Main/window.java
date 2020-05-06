@@ -17,6 +17,7 @@ public class window extends JFrame{
 		//CONFIGURACION DE VENTANA
 		setTitle("Hotel");
 		setSize(WIDTH, HEIGHT);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setLocationRelativeTo(null);
