@@ -14,6 +14,7 @@ import Main.ventanas;
 import Main.window;
 import Ventanas.adminUI;
 import etc.RepositorioHabitacion;
+import etc.RepositorioIngresos;
 import etc.conexion;
 import etc.features;
 
@@ -27,7 +28,7 @@ public class habitacion {
 	public String content;
 	private int numero;
 	private boolean estado;
-	private String ocupante;
+	private String ocupante="";
 	public habitacion(int numero, boolean estado)
 	{
 		this.numero=numero;
@@ -120,6 +121,7 @@ public class habitacion {
 					String nombre = tbNombre.getText();
 					ocupar(nombre);
 					adminUI.i.addIngreso("Habitación", window.precioH);
+					RepositorioIngresos.añadirIngreo(conexion.getConection(), "Habitación", window.precioH);
 					//AÑADIR NOMBRE A LA BASE DE DATOS
 					RepositorioHabitacion.ocuparHabitacion(conexion.getConection(), numero, ocupante);
 					tbNombre.setText("Nombre del Huesped");

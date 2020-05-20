@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import etc.RepositorioHabitacion;
+import etc.RepositorioIngresos;
 import etc.conexion;
 import etc.features;
 import objetos.habitacion;
@@ -25,7 +26,7 @@ public class window extends JFrame{
 	public static ArrayList<ingreso> ingreso= new ArrayList<ingreso>(); 
 	public static double gastoTotal=0; ///INICIALIZAR DE lA BASE DE DATOS
 	public static double ingresoTotal=0; ///INICIALIZAR DE LA BASE DE DATOS
-	public static double precioH=500; //INICIALIZAR DE LA BASE DE DATOS
+	public static double precioH=-5; //INICIALIZAR DE LA BASE DE DATOS
 	public static int contadorGlobal=0;
 	public static features f = new features();
 	

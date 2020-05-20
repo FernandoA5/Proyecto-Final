@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import Main.window;
+import etc.RepositorioIngresos;
+import etc.conexion;
 import etc.features;
 import objetos.ingreso;
 
@@ -23,6 +25,10 @@ public class Ingresos {
 	public static JLabel lblTotal = new JLabel();
 	public Ingresos()
 	{
+		//SETEANDO EL PRECIO DE LA BASE DE DATOS
+		RepositorioIngresos.getPrecio(conexion.getConection());
+		//SETEANDO INGRESOS
+		RepositorioIngresos.leerIngresos(conexion.getConection());
 		//LBL INGRESOS TOTALES
 		lblTotal.setLayout(null);
 		lblTotal.setText("TOTAL: ");
@@ -34,7 +40,7 @@ public class Ingresos {
 		lblDRC.setBounds(550, 50, 150, 20);
 		//TB PRECIO
 		tbPrecio.setLayout(null);
-		tbPrecio.setText(" ");
+		tbPrecio.setText((window.precioH!=-5)?window.precioH+"":"");
 		tbPrecio.setHorizontalAlignment(SwingConstants.CENTER);
 		tbPrecio.setBounds(700, 50, 150, 20);
 		//BTN AJUSTAR PRECIO
@@ -49,16 +55,11 @@ public class Ingresos {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				window.precioH=Double.parseDouble(tbPrecio.getText());
+				RepositorioIngresos.setPrecio(conexion.getConection(), window.precioH);
 				features.put(window.precioH+"");
 			}
 		};
 		btnPrecio.addActionListener(al);
-		//ESCRITOR DE INGRESOS SOLO SE INICIALIZA AL INICIAR EL PROGRAMA
-		//TOMA LOS DATOS DE LA DB
-		if(window.ingreso.size()!=0)
-		{
-			//DEFINIR INGRESOS
-		}
 	}
 	public void setVisible(boolean v)
 	{
