@@ -1,74 +1,86 @@
 package Main;
 
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.JPanel;
 
+import Ventanas.Login;
+import Ventanas.empleadoUI;
+import Ventanas.UI;
+import Ventanas.adminUI;
 
-import java.awt.Color;
-
-//import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-
+public class ventanas extends JPanel{
+	//OBJETOS GLOBALES
 	
-public class ventanas {
+	//VENTANAS
+	public static Login lg= new Login();
+	public static empleadoUI eUI = new empleadoUI();
+	public static UI ui = new UI();
+	public static adminUI aUI = new adminUI();
 	
-	
-	public ventanas()
+	public ventanas(int u)
 	{
-		
+		admU(0);
 	}
-	public void login()
+	//ESTA FUNCION GESTIONA LAS VENTANAS
+	public static void admU(int u)
 	{
-		//PANEL
-		window.p.setBackground(Color.DARK_GRAY);
-		window.p.setBounds(500, 230, 250, 400);
-		
-		
-		//LABEL
-		System.out.println("HOLI");
-		JLabel tag=new JLabel("Login");
-		tag.setBounds(620, 250, 50, 20);//POSICION Y TAMAÃ‘O
-		tag.setForeground(Color.white);//COLOR DE LETRA
-		tag.setHorizontalAlignment(SwingConstants.CENTER);//ALINEACION HORIZONTAL
-		tag.setVerticalAlignment(SwingConstants.CENTER);//ALINEACION VERTICAL
-		window.p.add(tag);
-		
-		//TEXT BOX
-		JTextField tb= new JTextField(16);
-		tb.setLayout(null);
-		tb.setText("Nombre de usuario");
-		tb.setHorizontalAlignment(SwingConstants.CENTER);
-		tb.setBorder(null);
-		tb.setBounds(550, 280, 200, 20);
-		window.p.add(tb);
-		JTextField tbP= new JTextField(16);
-		tbP.setLayout(null);
-		tbP.setText("Contraseña");
-		tbP.setHorizontalAlignment(SwingConstants.CENTER);
-		tb.setBorder(null);
-		tbP.setBounds(550, 310, 200, 20);
-		window.p.add(tbP);
-
-		//BUTTON
-		JButton btn1 =new JButton();
-		btn1.setLayout(null);
-		btn1.setText("BOTON");
-		btn1.setBounds(600, 350, 100, 30);
-		window.p.add(btn1);
-		
-		
-		ActionListener al = new ActionListener(){
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent ae) {
-				// TODO Auto-generated method stub
-				System.out.println("BOTON PRECIONADO");
+		switch(u)
+		{
+			case 0:
+			{
+				window.alU.add(0);
+				login();
 			}
-		};
-		btn1.addActionListener(al);
-
-		//window.p.setBorder(BorderFactory.createLineBorder(Color.white));
+			break;
+			case 1:
+			{
+				window.alU.add(1);
+				empleadoUI();
+			}
+			break;
+			case 2:
+			{
+				window.alU.add(2);
+				adminUI();
+			}
+			break;
+			default: System.out.println("404");
+		}
+	}
+	
+	public static void login()
+	{
+		//LIMPIANDO PANTALLA
+		window.p.removeAll();
+		window.p.repaint();
+		//UBICACION
+		System.out.println("Login");
+		lg.setVisible(true);
 		
 	}
+	public static void empleadoUI()
+	{
+		window.p.removeAll();
+		//UBICACION
+		System.out.println("Empleado");
+		eUI.setVisible();
+		//BOTONES INTERFAZ
+		interfaz();
+
+		window.p.repaint();
+	}
+	public static void adminUI()
+	{
+		window.p.removeAll();
+		window.p.repaint();
+		System.out.println("Admin");
+		interfaz();
+		aUI.setVisible(true, 0);
+		
+				
+	}
+	public static void interfaz()
+	{
+		ui.setVisible(true);
+	}
+	
 }
