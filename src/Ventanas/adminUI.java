@@ -14,10 +14,10 @@ import etc.features;
 
 public class adminUI {
 	//OBJETOS GLOBALES
-		public static Gastos g= new Gastos();
-		public static Habitaciones h = new Habitaciones();
-		public static Ingresos i= new Ingresos();
-		public static Balance b = new Balance();
+		public static vGastos g= new vGastos();
+		public static vHabitaciones h = new vHabitaciones();
+		public static vIngresos i= new vIngresos();
+		public static vBalance b = new vBalance();
 		//BOTONES
 		public static JButton btnH = new JButton();
 		public static JButton btnG = new JButton();

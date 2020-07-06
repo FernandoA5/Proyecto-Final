@@ -1,24 +1,30 @@
 package Main;
 
+import java.util.Calendar;
+
 import javax.swing.JPanel;
 
-import Ventanas.Login;
+import Ventanas.vLogin;
 import Ventanas.empleadoUI;
-import Ventanas.UI;
+import etc.features;
+import Ventanas.barUI;
 import Ventanas.adminUI;
 
 public class ventanas extends JPanel{
 	//OBJETOS GLOBALES
 	
 	//VENTANAS
-	public static Login lg= new Login();
+	public static vLogin lg= new vLogin();
 	public static empleadoUI eUI = new empleadoUI();
-	public static UI ui = new UI();
+	public static barUI ui = new barUI();
 	public static adminUI aUI = new adminUI();
 	
 	public ventanas(int u)
 	{
+		
+		
 		admU(0);
+		
 	}
 	//ESTA FUNCION GESTIONA LAS VENTANAS
 	public static void admU(int u)
@@ -53,7 +59,7 @@ public class ventanas extends JPanel{
 		window.p.removeAll();
 		window.p.repaint();
 		//UBICACION
-		System.out.println("Login");
+		System.out.println("Login-----------------");
 		lg.setVisible(true);
 		
 	}
@@ -61,7 +67,7 @@ public class ventanas extends JPanel{
 	{
 		window.p.removeAll();
 		//UBICACION
-		System.out.println("Empleado");
+		System.out.println("Empleado--------------");
 		eUI.setVisible();
 		//BOTONES INTERFAZ
 		interfaz();
@@ -72,7 +78,7 @@ public class ventanas extends JPanel{
 	{
 		window.p.removeAll();
 		window.p.repaint();
-		System.out.println("Admin");
+		System.out.println("Admin-----------------");
 		interfaz();
 		aUI.setVisible(true, 0);
 		

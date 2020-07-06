@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import Main.window;
 import objetos.ingreso;
 
-public class RepositorioIngresos {
+public class repositorioIngresos {
 	public static void añadirIngreo(Connection conexion, String Concepto, double Cantidad)
 	{
 		if(conexion!=null)
@@ -30,7 +30,7 @@ public class RepositorioIngresos {
 		if(conexion!=null)
 		{
 			
-			String sql= "SELECT * FROM i";
+			String sql= "SELECT * FROM i ORDER BY Id DESC";
 			try {
 				Statement st = conexion.createStatement();
 				ResultSet rs = st.executeQuery(sql);
@@ -42,8 +42,8 @@ public class RepositorioIngresos {
 					window.ingreso.add(i);
 					JLabel lblI = new JLabel();
 					JLabel lblC= new JLabel();
-					Ventanas.Ingresos.lblConcepto.add(lblC);
-					Ventanas.Ingresos.lblIngreso.add(lblI);
+					Ventanas.vIngresos.lblConcepto.add(lblC);
+					Ventanas.vIngresos.lblIngreso.add(lblI);
 					window.ingresoTotal+=window.precioH;
 				}
 			}catch(SQLException ex)

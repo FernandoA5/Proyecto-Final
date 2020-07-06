@@ -8,7 +8,7 @@ import java.sql.Statement;
 import Main.window;
 import objetos.gasto;
 
-public class RepositorioGastos {
+public class repositorioGastos {
 	public static void registrarGasto(Connection conexion, String concepto, double costo)
 	{
 			if(conexion!=null)
@@ -28,7 +28,7 @@ public class RepositorioGastos {
 		String c1; double c2; int count=0;
 		if(conexion!=null)
 		{
-			String sql = "SELECT * FROM g";
+			String sql = "SELECT * FROM g ORDER BY Id DESC";
 			try {
 				Statement st=conexion.createStatement();
 				ResultSet rs = st.executeQuery(sql);

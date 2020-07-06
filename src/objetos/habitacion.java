@@ -10,29 +10,34 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import Main.ventanas;
 import Main.window;
 import Ventanas.adminUI;
-import etc.RepositorioHabitacion;
-import etc.RepositorioIngresos;
+import etc.repositorioHabitacion;
+import etc.repositorioIngresos;
 import etc.conexion;
 import etc.features;
 
 public class habitacion {
 	//OBJETOS GLOBALES
-	//JButton habitacion = new JButton();
 	JLabel habitacion = new JLabel();
 	JButton registrar = new JButton();
 	JButton xb = new JButton();
 	JTextField tbNombre = new JTextField(16);
+	JLabel lblFecha = new JLabel();
+	
+	//VARIABLES GLOBALES
 	public String content;
+	private int id;
 	private int numero;
 	private boolean estado;
 	private String ocupante="";
-	public habitacion(int numero, boolean estado)
+	private String fecha;
+	
+	public habitacion(int numero, boolean estado, String fecha)
 	{
 		this.numero=numero;
 		this.estado=estado; //POR DEFECTO VENDRA EN TRUE: DISPONIBLE
+		this.fecha=fecha;
 	}
 	
 	//GETTERS
@@ -48,6 +53,14 @@ public class habitacion {
 	{
 		return this.ocupante;
 	}
+	public String getFecha()
+	{
+		return this.fecha;
+	}
+	public int getId()
+	{
+		return this.id;
+	}
 	
 	//SETTERS
 	public void ocupar(String nombre)
@@ -61,7 +74,6 @@ public class habitacion {
 		//AQUI SE CONECTA CON LA BASE DE DATOS PARA DESOCUPAR LA HABITACION
 		this.estado=true;
 		this.ocupante="";
-		
 	}
 	public void setNumero(int numeroLocal)
 	{
@@ -75,12 +87,19 @@ public class habitacion {
 	{
 		this.ocupante=ocupanteLocal;
 	}
-	
+	public void setFecha(String fechaL)
+	{
+		this.fecha=fechaL;
+	}
+	public void setId(int idL)
+	{
+		this.id=idL;
+	}
 	//METODOS ESPECIALES
 	public void dibujar(int Sx, int Sy, int x, int y)
 	{
-		
 		//OBJETOS
+			//LBL HABITACION
 		habitacion.setLayout(null);
 		habitacion.setOpaque(true);
 		habitacion.setHorizontalAlignment(SwingConstants.CENTER);
@@ -90,7 +109,14 @@ public class habitacion {
 		content = (this.ocupante.equals(""))?this.numero+"":this.ocupante;
 		habitacion.setText(content);
 		habitacion.setBounds(x, y, Sx, Sy);
+			//LBL FECHA
+		lblFecha.setLayout(null);
+		lblFecha.setText(this.fecha);
+		lblFecha.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFecha.setForeground(Color.WHITE);
+		lblFecha.setBounds(x, y+100, Sx, 20);
 		botones(Sx, Sy, x, y);
+			
 	}
 	
 	public void botones(int Sx, int Sy, int x, int y)
@@ -118,18 +144,35 @@ public class habitacion {
 				{
 					System.out.println("Registrar"+numero);
 					
-					String nombre = tbNombre.getText();
+					String nombre;
+					
+					int idTB=0;
+					for(int i =0; i<window.room.size();i++)
+					{
+						
+						if(window.room.get(i).getId()==id)
+						{
+							idTB = i;
+						}
+					}
+					nombre = window.room.get(idTB).tbNombre.getText();
 					ocupar(nombre);
+					features.put(nombre);
 					adminUI.i.addIngreso("Habitación", window.precioH);
-					RepositorioIngresos.añadirIngreo(conexion.getConection(), "Habitación", window.precioH);
+					repositorioIngresos.añadirIngreo(conexion.getConection(), "Habitación", window.precioH);
 					//AÑADIR NOMBRE A LA BASE DE DATOS
-					RepositorioHabitacion.ocuparHabitacion(conexion.getConection(), numero, ocupante);
+					
+					repositorioHabitacion.ocuparHabitacion(conexion.getConection(), numero, nombre, fecha);
 					tbNombre.setText("Nombre del Huesped");
-					setVisible(estado);
+					setVisible(estado, fecha);
 				}
 			}
 		};
 		registrar.addActionListener(al);
+		if(this.id==1)
+		{
+			window.listeners++;
+		}
 	
 		xb.setLayout(null);
 		xb.setText("X");
@@ -142,32 +185,42 @@ public class habitacion {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("HABITACION "+ numero);
 				desocupar();
-				RepositorioHabitacion.desocuparHabitacion(conexion.getConection(), numero);
-				setVisible(estado);
+				repositorioHabitacion.desocuparHabitacion(conexion.getConection(), numero);
+				setVisible(estado, fecha);
 			}
 		};
 		xb.addActionListener(xal);
 		
 	}
-	public void setVisible(boolean estado)
+	public void setVisible(boolean v, String fecha)
 	{	
-		content = (this.ocupante.equals(""))?this.numero+"":this.ocupante;
-		habitacion.setText(content);
-		Color c = (estado==true)? Color.GREEN:Color.RED;
-		habitacion.setBackground(c);
-		window.p.add(habitacion);
-		
-		
-		
-		registrar.setVisible(estado);
-		window.p.add(registrar);
-		
-		tbNombre.setVisible(estado);
-		
-		window.p.add(tbNombre);
-	
-		xb.setVisible(!estado);
-		window.p.add(xb);
+			lblFecha.setVisible(v);
+			content = (this.ocupante.equals(""))?this.numero+"":this.ocupante;
+			Color c = (v==true)? Color.GREEN:Color.RED;
+			habitacion.setBackground(c);
+			habitacion.setText(content);
+			
+			
+			habitacion.setVisible(true);
+			
+			registrar.setVisible(v);
+			tbNombre.setVisible(v);
+			xb.setVisible(!v);
+			
+			if(!fecha.equals(this.fecha))
+			{
+				lblFecha.setVisible(false);
+				habitacion.setVisible(false);
+				registrar.setVisible(false);
+				tbNombre.setVisible(false);
+				xb.setVisible(false);
+			}
+			
+			window.p.add(lblFecha);
+			window.p.add(habitacion);
+			window.p.add(registrar);
+			window.p.add(tbNombre);
+			window.p.add(xb);
 	}
 	
 }
